@@ -1,4 +1,4 @@
-class Plant { //<>// //<>// //<>//
+class Plant { //<>// //<>// //<>// //<>//
 
 
   String name;
@@ -59,7 +59,7 @@ class Plant { //<>// //<>// //<>//
 
     pushMatrix();
     translate(pivot.x, pivot.y, pivot.z); // GLOBAL POSITION OF PLANT
-    stroke(0,0,255);
+    stroke(0, 0, 255);
     //noFill();
     //circle(0, 0, 30);
     //line(pivot.x, pivot.y, pivot.z, pivot.x, pivot.y, 0);
@@ -77,7 +77,7 @@ class Plant { //<>// //<>// //<>//
       Square square = (Square) it.next();
 
       square.update();
-      square.render();e
+      square.render();
     }
 
     popMatrix();
@@ -87,16 +87,18 @@ class Plant { //<>// //<>// //<>//
 
     startingSquare = 1;
 
-    biggestSquareAllowed = startingSquare / 1; // GOOD VALUES = / 2
-    smallestSquareAllowed = (float) startingSquare / 1024; // GOOD VALUES = / 128
-    granularity = 0.95f; // => PROBABILTY OF DESCENDING IN RECURSIVE SCALE
+    biggestSquareAllowed = startingSquare / 8; // GOOD VALUES = / 2
+    smallestSquareAllowed = (float) startingSquare / 512; // GOOD VALUES = / 128
+    granularity = 0.5f; // => PROBABILTY OF DESCENDING IN RECURSIVE SCALE
 
-    createSquaresGrid(0, 0, startingSquare);
+    float recursiveDepth = 1; // SOLO PARA MOSTRAR LOS NUMEROS
+    
+    createSquaresGrid(0, 0, startingSquare, recursiveDepth);
     centerSquarePosition();
   }
 
-  public void createSquaresGrid(float resXStart, float resYStart, float squareSize) {
-
+  public void createSquaresGrid(float resXStart, float resYStart, float squareSize, float recursiveDepth) {
+    
     //RECURSIVE LIMIT => SMALLEST SQUARE
     if (squareSize >= smallestSquareAllowed) {
 
@@ -106,16 +108,17 @@ class Plant { //<>// //<>// //<>//
       if (squareSize <= biggestSquareAllowed) {
 
         // THIS GRANULARITY CHECK WORKS INVERSIVELY (CUZ OF HOW THE ALGORITHM IS IMPLEMENTED):
-        // IT'S ACTUALLY THE PROBABILITY OF STAYING IN THIS SQUARE AND NOT DESCENDING 
+        // IT'S ACTUALLY THE PROBABILITY OF STAYING IN THIS SQUARE AND NOT DESCENDING
         if (random(1) > granularity) {
 
-          float colorPickNormX = (resXStart + halfSquare) / startingSquare; //<>//
+          float colorPickNormX = (resXStart + halfSquare) / startingSquare;
           float colorPickNormY = (resYStart + halfSquare) / startingSquare;
 
           int couleur = plantImage.get((int) (plantImage.width * colorPickNormX), (int) (plantImage.height * colorPickNormY));
 
           // ONLY CREATE A SQUARE IF PIXEL IN IMAGE IS NOT TRANSPARENT && IS NOT BLACK
           if (alpha(couleur) > 0 && brightness(couleur) > 0) {
+          //if (true) {
             couleur = color(red(couleur), green(couleur), blue(couleur), 255); // FULL OPACITY TO COLORS
             //            p5.println("-| " + p5.red(color), p5.green(color), p5.blue(color));
 
@@ -124,7 +127,8 @@ class Plant { //<>// //<>// //<>//
 
 
             PVector newPos = new PVector(resXStart, resYStart);
-            String squareWord = words[(int) random(words.length)];
+            //String squareWord = words[(int) random(words.length)]; // NORMAL
+            String squareWord = str(int(recursiveDepth));
             float fadeInDelay = maxSquareFadeInDelay * (1 - colorPickNormY); // MAKE IT GROW FROM THE BOTTOM
 
             Square newSquare = new Square(newPos, couleur, squareSize, squareWord);
@@ -134,16 +138,16 @@ class Plant { //<>// //<>// //<>//
             squares.add(newSquare);
           }
         } else {
-          createSquaresGrid(resXStart, resYStart, halfSquare);
-          createSquaresGrid(resXStart + halfSquare, resYStart, halfSquare);
-          createSquaresGrid(resXStart, resYStart + halfSquare, halfSquare);
-          createSquaresGrid(resXStart + halfSquare, resYStart + halfSquare, halfSquare);
+          createSquaresGrid(resXStart, resYStart, halfSquare, recursiveDepth * 2);
+          createSquaresGrid(resXStart + halfSquare, resYStart, halfSquare, recursiveDepth * 2);
+          createSquaresGrid(resXStart, resYStart + halfSquare, halfSquare, recursiveDepth * 2);
+          createSquaresGrid(resXStart + halfSquare, resYStart + halfSquare, halfSquare, recursiveDepth * 2);
         }
       } else {
-        createSquaresGrid(resXStart, resYStart, halfSquare);
-        createSquaresGrid(resXStart + halfSquare, resYStart, halfSquare);
-        createSquaresGrid(resXStart, resYStart + halfSquare, halfSquare);
-        createSquaresGrid(resXStart + halfSquare, resYStart + halfSquare, halfSquare);
+        createSquaresGrid(resXStart, resYStart, halfSquare, recursiveDepth * 2);
+        createSquaresGrid(resXStart + halfSquare, resYStart, halfSquare, recursiveDepth * 2);
+        createSquaresGrid(resXStart, resYStart + halfSquare, halfSquare, recursiveDepth * 2);
+        createSquaresGrid(resXStart + halfSquare, resYStart + halfSquare, halfSquare, recursiveDepth * 2);
       }
     }
   }
@@ -206,7 +210,7 @@ class Plant { //<>// //<>// //<>//
   public void flippingProcess() {
 
     //int freq = 500; // EVERY xxxx MILLISECONDS
-    if(flippingTimer.isFinished()){
+    if (flippingTimer.isFinished()) {
       flipRandomSquare();
       //println("-- || FLIPPING A SQUARE");
       flippingTimer.start();

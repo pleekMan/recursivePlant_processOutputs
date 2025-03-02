@@ -142,6 +142,9 @@ class Square {
 
     float positionForColorLerp = map(flipPosition, 0.5, 1, 0, 1);
 
+    // NORMAL COLORING PROCESS
+    // --->
+    /*
     if (showWord) {
 
       //positionForColorLerp = constrain(positionForColorLerp, 0, 1);
@@ -155,8 +158,18 @@ class Square {
       fill(couleur, (int) (fadeInValue * 255));
       noStroke();
     }
-
+    // <---
+    */
+    
+    noFill();
+    stroke(0);
     square(0, 0, size);
+    
+    // TEMP: SHOW SQUARE SIZE FROM STRUCTURE
+    textSize(15);
+    fill(255,0,0);
+    rotateY(-angle);
+    text(word,0,0);
     //    drawShadowySquare(xCentering, yCentering, size, color, fadeInValue);
 
     // SAVING SCREEN ABSOLUTE COORDINATES AFTER ALL THOSE PUSH/POPS MATRIX..

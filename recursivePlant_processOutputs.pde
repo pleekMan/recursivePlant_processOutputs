@@ -59,7 +59,8 @@ void draw() {
   //}
 
   pushMatrix();
-  translate(width * 0.5, height - 100);
+  // translate(width * 0.5, height - 100); // NORMAL : PARA MOSTRAR PLANTAS
+  translate(mouseX, mouseY); // PARA MOSTRAR GRILA ESTRUCTURAL
   //fill(0,255,0);
   //circle(0,0,40);
 
@@ -154,12 +155,13 @@ void clearAllPlants() {
 
 void keyPressed() {
   if (key == ' ') {
+        clearAllPlants();
     spawnPlantRandom();
   } else if (key == 'c') {
     clearAllPlants();
   } else if (key == 'e') {
     // EXPORT TO IMAGE
-    saveFrame("images/samples - parametric/granularity 0.95/g-0.95 max-2 min-1024_####.png");
+    saveFrame("images/samples - parametric/structure - monochrome/structure_####.png");
   }
   
 }

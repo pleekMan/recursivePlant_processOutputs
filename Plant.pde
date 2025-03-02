@@ -77,7 +77,7 @@ class Plant { //<>// //<>// //<>//
       Square square = (Square) it.next();
 
       square.update();
-      square.render();
+      square.render();e
     }
 
     popMatrix();
@@ -87,9 +87,9 @@ class Plant { //<>// //<>// //<>//
 
     startingSquare = 1;
 
-    biggestSquareAllowed = startingSquare / 2; // GOOD VALUES = / 2
+    biggestSquareAllowed = startingSquare / 1; // GOOD VALUES = / 2
     smallestSquareAllowed = (float) startingSquare / 1024; // GOOD VALUES = / 128
-    granularity = 0.2f; // => PROBABILTY OF DESCENDING IN RECURSIVE SCALE
+    granularity = 0.95f; // => PROBABILTY OF DESCENDING IN RECURSIVE SCALE
 
     createSquaresGrid(0, 0, startingSquare);
     centerSquarePosition();

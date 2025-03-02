@@ -159,7 +159,7 @@ void keyPressed() {
     clearAllPlants();
   } else if (key == 'e') {
     // EXPORT TO IMAGE
-    saveFrame("images/samples - parametric/granularity 0.2/g-0.2 max-2 min-1024_####.png");
+    saveFrame("images/samples - parametric/granularity 0.95/g-0.95 max-2 min-1024_####.png");
   }
   
 }

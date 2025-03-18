@@ -87,17 +87,17 @@ class Plant { //<>// //<>// //<>// //<>//
 
     startingSquare = 1;
 
-    biggestSquareAllowed = startingSquare / 8; // GOOD VALUES = / 2
+    biggestSquareAllowed = startingSquare / 2; // GOOD VALUES = / 2
     smallestSquareAllowed = (float) startingSquare / 512; // GOOD VALUES = / 128
-    granularity = 0.5f; // => PROBABILTY OF DESCENDING IN RECURSIVE SCALE
+    granularity = 0.8f; // => PROBABILTY OF DESCENDING IN RECURSIVE SCALE
 
-    float recursiveDepth = 1; // SOLO PARA MOSTRAR LOS NUMEROS
+    //float recursiveDepth = 1; // SOLO PARA MOSTRAR LOS NUMEROS
     
-    createSquaresGrid(0, 0, startingSquare, recursiveDepth);
+    createSquaresGrid(0, 0, startingSquare);
     centerSquarePosition();
   }
 
-  public void createSquaresGrid(float resXStart, float resYStart, float squareSize, float recursiveDepth) {
+  public void createSquaresGrid(float resXStart, float resYStart, float squareSize) {
     
     //RECURSIVE LIMIT => SMALLEST SQUARE
     if (squareSize >= smallestSquareAllowed) {
@@ -127,8 +127,8 @@ class Plant { //<>// //<>// //<>// //<>//
 
 
             PVector newPos = new PVector(resXStart, resYStart);
-            //String squareWord = words[(int) random(words.length)]; // NORMAL
-            String squareWord = str(int(recursiveDepth));
+            String squareWord = words[(int) random(words.length)]; // NORMAL
+            //String squareWord = str(int(recursiveDepth));
             float fadeInDelay = maxSquareFadeInDelay * (1 - colorPickNormY); // MAKE IT GROW FROM THE BOTTOM
 
             Square newSquare = new Square(newPos, couleur, squareSize, squareWord);
@@ -138,16 +138,16 @@ class Plant { //<>// //<>// //<>// //<>//
             squares.add(newSquare);
           }
         } else {
-          createSquaresGrid(resXStart, resYStart, halfSquare, recursiveDepth * 2);
-          createSquaresGrid(resXStart + halfSquare, resYStart, halfSquare, recursiveDepth * 2);
-          createSquaresGrid(resXStart, resYStart + halfSquare, halfSquare, recursiveDepth * 2);
-          createSquaresGrid(resXStart + halfSquare, resYStart + halfSquare, halfSquare, recursiveDepth * 2);
+          createSquaresGrid(resXStart, resYStart, halfSquare);
+          createSquaresGrid(resXStart + halfSquare, resYStart, halfSquare);
+          createSquaresGrid(resXStart, resYStart + halfSquare, halfSquare);
+          createSquaresGrid(resXStart + halfSquare, resYStart + halfSquare, halfSquare);
         }
       } else {
-        createSquaresGrid(resXStart, resYStart, halfSquare, recursiveDepth * 2);
-        createSquaresGrid(resXStart + halfSquare, resYStart, halfSquare, recursiveDepth * 2);
-        createSquaresGrid(resXStart, resYStart + halfSquare, halfSquare, recursiveDepth * 2);
-        createSquaresGrid(resXStart + halfSquare, resYStart + halfSquare, halfSquare, recursiveDepth * 2);
+        createSquaresGrid(resXStart, resYStart, halfSquare);
+        createSquaresGrid(resXStart + halfSquare, resYStart, halfSquare);
+        createSquaresGrid(resXStart, resYStart + halfSquare, halfSquare);
+        createSquaresGrid(resXStart + halfSquare, resYStart + halfSquare, halfSquare);
       }
     }
   }

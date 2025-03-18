@@ -19,7 +19,7 @@ Timer plantSpawnerTimer;
 int plantCountLimit;
 
 void setup() {
-  size(1500, 1000, P3D);
+  size(1500, 1000, P3D); // Normal : 1500,1000
   //fullScreen(P3D);
 
   frameRate(40);
@@ -59,8 +59,8 @@ void draw() {
   //}
 
   pushMatrix();
-  // translate(width * 0.5, height - 100); // NORMAL : PARA MOSTRAR PLANTAS
-  translate(mouseX, mouseY); // PARA MOSTRAR GRILA ESTRUCTURAL
+  translate(width * 0.5, height - 100); // NORMAL : PARA MOSTRAR PLANTAS (100 or 200)
+  //translate(mouseX, mouseY); // PARA MOSTRAR GRILA ESTRUCTURAL
   //fill(0,255,0);
   //circle(0,0,40);
 
@@ -90,10 +90,10 @@ void spawnPlantRandom() {
 
 
   String[] plantList = loadFilenames(sketchPath() + "/data/illustrations");
-  //String chosenFilePath = plantList[floor(random(plantList.length))];
+  String chosenFilePath = plantList[floor(random(plantList.length))];
   //printArray(plantList);
   
-  String chosenFilePath = plantList[6]; // => Cactus Speciosus
+  //String chosenFilePath = plantList[6]; // => Cactus Speciosus
   println("Plant => " + chosenFilePath);
   PImage illustration = getIllustration(chosenFilePath);
 
@@ -161,7 +161,7 @@ void keyPressed() {
     clearAllPlants();
   } else if (key == 'e') {
     // EXPORT TO IMAGE
-    saveFrame("images/samples - parametric/structure - monochrome/structure_####.png");
+    saveFrame("images/random/color2/randomPlant_####.png");
   }
   
 }

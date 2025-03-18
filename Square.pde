@@ -31,7 +31,7 @@ class Square {
 
   public Square(PVector _pos, int _color, float _size, String _word) {
 
-    sizeMultiplier = 800;
+    sizeMultiplier = 800; // Normal: 800
     size = _size * sizeMultiplier;
     sizeSpeed = 0; // USED FOR SHRINKING AT THE END
     pos = _pos;
@@ -144,7 +144,7 @@ class Square {
 
     // NORMAL COLORING PROCESS
     // --->
-    /*
+
     if (showWord) {
 
       //positionForColorLerp = constrain(positionForColorLerp, 0, 1);
@@ -158,18 +158,20 @@ class Square {
       fill(couleur, (int) (fadeInValue * 255));
       noStroke();
     }
+
     // <---
-    */
-    
-    noFill();
-    stroke(0);
+
+
+    //noFill();
+    //stroke(0);
+    //rotate(QUARTER_PI);
     square(0, 0, size);
-    
+
     // TEMP: SHOW SQUARE SIZE FROM STRUCTURE
-    textSize(15);
-    fill(255,0,0);
-    rotateY(-angle);
-    text(word,0,0);
+    //textSize(15);
+    //fill(255, 0, 0);
+    //rotateY(-angle);
+    //text(word, 0, 0);
     //    drawShadowySquare(xCentering, yCentering, size, color, fadeInValue);
 
     // SAVING SCREEN ABSOLUTE COORDINATES AFTER ALL THOSE PUSH/POPS MATRIX..
